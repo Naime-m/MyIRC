@@ -1,0 +1,240 @@
+<html>
+
+<head>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Socket.IO chat</title>
+  <style>
+    body {
+      background-color: #F5F5F5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    h2 {
+      font-family: Arial, sans-serif;
+      color: #008B8B;
+    }
+
+    ul#messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    ul#messages>li {
+      padding: 0.5rem 1rem;
+      background-color: #F8F8F8;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 500px;
+      text-align: left;
+      margin: 10px;
+    }
+
+    ul#messages>li:nth-child(odd) {
+      background: #008B8B;
+      color: #F8F8F8;
+    }
+
+    form#form {
+      text-align: center;
+      margin: 20px;
+    }
+
+    input#input {
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: 500px;
+      height: 35px;
+      text-align: left;
+      padding-left: 15px;
+    }
+
+    button {
+      border-radius: 100px;
+      border: none;
+      width: 100px;
+      height: 35px;
+      text-align: center;
+      transition: background-color 0.3s;
+      background-color: #008B8B;
+      color: #fff;
+    }
+
+    button:hover {
+      background-color: #F8F8F8;
+      color: #008B8B;
+    }
+
+    a.connexion-link {
+      font-family: Arial, sans-serif;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-decoration: none;
+      color: #ffffff;
+      background: #000000;
+      padding: 5px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    a.connexion-link:hover {
+      background-color: #008B8B;
+      color: #F8F8F8;
+    }
+
+    .site-name {
+      position: absolute;
+      top: 10px;
+      left: 238px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 24px;
+      color: #000;
+    }
+
+    .site-name::before {
+      content: "|";
+      color: #008B8B;
+      margin-right: 5px;
+      height: 100vh;
+    }
+
+    .sidebar {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      background-color: #f1f1f1;
+      position: fixed;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .room-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .room-list li {
+      margin: 5px;
+      padding: 10px;
+      background: #008B8B;
+      color: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .room-list li:hover {
+      background: #F8F8F8;
+      color: #008B8B;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="sidenav">
+      <ul id="privateRoom"></ul>
+      <ul id="rooms"></ul>
+      <form id="addRoom" action="">
+        <input id="roomInput" autocomplete="off" /><button>Add room</button>
+      </form>
+      <form id="joinRoom" action="">
+        <input id="joinInput" autocomplete="off" /><button>Join room</button>
+      </form>
+    </div>
+    <div class="chat">
+      <ul id="messages"></ul>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" /><button>Send</button>
+      </form>
+      <p id="currentRoom">Current Room: </p>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    const socket = io();
+    const rooms = document.getElementById("rooms");
+    const form = document.getElementById('form');
+    const addRoom = document.getElementById('addRoom');
+    const input = document.getElementById('input');
+    const roomInput = document.getElementById('roomInput');
+    const joinInput = document.getElementById('joinInput');
+    const messages = document.getElementById('messages');
+
+    document.addEventListener("DOMContentLoaded", (e) => {
+      e.preventDefault();
+      socket.emit('charge rooms');
+      socket.emit('private room');
+    });
+
+    socket.on('existing rooms', (myRooms) => {
+      existingRooms = myRooms;
+      for (let i = 0; i < myRooms.length; i++) {
+        let item = document.createElement('li');
+        item.textContent = myRooms[i].name;
+        rooms.appendChild(item);
+      }
+    });
+
+    addRoom.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (roomInput.value) {
+        socket.emit('room create', roomInput.value);
+        roomInput.value = '';
+      }
+    });
+
+    const currentRoomElement = document.getElementById('currentRoom');
+    socket.on('current room', (room) => {
+      currentRoomElement.textContent = `Current Room: ${room}`;
+    });
+
+    const privateRoom = document.createElement('p');
+    socket.on('private room', (room) => {
+      privateRoom.textContent = `Your private room is : ${room}`;
+      rooms.appendChild(privateRoom);
+    });
+
+    socket.on('room create', (room) => {
+      const item = document.createElement('li');
+      item.textContent = room;
+      rooms.appendChild(item);
+    });
+
+    joinRoom.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (joinInput.value) {
+        socket.emit('room join', joinInput.value);
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', (msg) => {
+      const item = document.createElement('li');
+      item.textContent = msg;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+  </script>
+</body>

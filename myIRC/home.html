@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      background-color: #F5F5F5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      font-family: Arial, sans-serif;
+      font-size: 36px;
+    }
+
+    form {
+      text-align: center;
+    }
+
+    a.inscription-link {
+      font-family: Arial, sans-serif;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-decoration: none;
+      color: #ffffff;
+      background: #000000;
+      padding: 5px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    a.inscription-link:hover {
+      background-color: #008B8B;
+      color: #F8F8F8;
+    }
+
+    a.connexion-link {
+      font-family: Arial, sans-serif;
+      position: absolute;
+      top: 10px;
+      right: 125px;
+      text-decoration: none;
+      color: #ffffff;
+      background: #000000;
+      padding: 5px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    a.connexion-link:hover {
+      background-color: #008B8B;
+      color: #F8F8F8;
+    }
+
+    .site-name {
+      position: absolute;
+      top: 10px;
+      left: 238px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 24px;
+      color: #000;
+    }
+
+    .site-name::before {
+      content: "|";
+      color: #008B8B;
+      margin-right: 5px;
+      height: 100vh;
+    }
+
+    .introduction {
+      position: relative;
+      right: 265px;
+      bottom: 150px;
+      font-size: 34px;
+      font-weight: bold;
+      margin: 20px;
+    }
+
+    .sous_introduction {
+      position: relative;
+      right: 335px;
+      bottom: 180px;
+      font-size: 14px;
+      margin: 20px;
+    }
+
+    .encadrement-discuter {
+      background-color: #008B8B;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    a.inscription-link2 {
+      font-family: Arial, sans-serif;
+      position: absolute;
+      bottom: 550px;
+      left: 245px;
+      text-decoration: none;
+      color: #ffffff;
+      background: #008B8B;
+      padding: 5px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    a.inscription-link2:hover {
+      background-color: #000000;
+      color: #F8F8F8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-name">myIRC</div>
+  <a href="http://localhost:8080/register" class="inscription-link">Inscription</a>
+  <a href="http://localhost:8080/login" class="connexion-link">Connexion</a>
+  <a href="http://localhost:8080/register" class="inscription-link2">Créer mon compte</a>
+
+  <div class="introduction">
+    Envie de <span class="encadrement-discuter">discuter</span> avec vos amis ?
+  </div>
+  <div class="sous_introduction">
+    Votre application de chat incontournable pour une communication fluide.
+  </div>
+</body>
+
+</html>

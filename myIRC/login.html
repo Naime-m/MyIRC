@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se connecter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #F5F5F5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h2 {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .input-container {
+            margin: 5px;
+            position: relative;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding-left: 30px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            width: 500px;
+            height: 35px;
+        }
+
+        button {
+            margin-left: 430px;
+            border-radius: 100px;
+            border: 1px solid #ccc;
+            width: 100px;
+            height: 35px;
+            text-align: center;
+            transition: background-color 0.3s;
+            background-color: black;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #505050;
+            color: #F8F8F8;
+        }
+
+        .create-account-link {
+            margin-left: 250px;
+            margin-bottom: 5px;
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        .highlight-text {
+            color: #008B8B;
+            background: #008B8B;
+            padding: 5px 7px;
+            border-radius: 5px;
+        }
+
+        a.inscription-link {
+            font-family: Arial, sans-serif;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            background: #000000;
+            padding: 5px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a.inscription-link:hover {
+            background-color: #008B8B;
+            color: #F8F8F8;
+        }
+
+        .input-contain {
+            margin: 5px;
+            position: relative;
+            bottom: 309.5px;
+            left: 674px;
+        }
+
+        .input-contain a {
+            display: block;
+            color: #ffffff;
+            background: #000000;
+            padding: 5px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .input-contain a:hover {
+            background-color: #008B8B;
+            color: #F8F8F8;
+        }
+
+        .site-name {
+            position: absolute;
+            top: 10px;
+            left: 238px;
+            font-family: "Montserrat", sans-serif;
+            font-size: 24px;
+            color: #000;
+        }
+
+        .site-name::before {
+            content: "|";
+            color: #008B8B;
+            margin-right: 5px;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="site-name">myIRC</div>
+    <a href="http://localhost:8080/register" class="inscription-link">Inscription</a>
+    <div class="input-contain">
+        <a href="http://localhost:8080/home">
+            <i class="fa fa-user"></i>
+        </a>
+    </div>
+    <h2>SE CONNECTER</h2>
+    <p class="create-account-link">Vous n'avez pas de compte ? <span class="highlight-text"><a
+                href="http://localhost:8080/register"
+                style="color: white; font-weight: bold; text-decoration: none;">Créez-en un ici</a></span>
+    <form action="/login" method="post">
+        <div class="input-container">
+            <i class="fa fa-user"></i>
+            <input id="username" type="text" name="username" placeholder="Nom d'utilisateur">
+        </div>
+        <br>
+        <div class="input-container">
+            <i class="fa fa-lock"></i>
+            <input id="password" type="password" name="password" placeholder="Mot de passe">
+        </div>
+        <br>
+        <button class="Connexion"><span>Connexion</span></button>
+    </form>
+</body>
+
+</html>
